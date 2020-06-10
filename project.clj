@@ -9,5 +9,6 @@
                  [ring/ring-jetty-adapter "1.8.1"]
                  [com.layerware/hugsql "0.5.1"]
                  [org.postgresql/postgresql "42.2.2"]
+                 [com.mchange/c3p0 "0.9.5.5"]
                  [metosin/reitit "0.5.2"]]
   :repl-options {:init-ns ringu.core})
