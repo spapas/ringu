@@ -18,9 +18,10 @@
    (ring/create-default-handler)))
 
 
-(def reloadable-app
-  (wrap-reload #'app))
+(def reloadable-app (wrap-reload #'app))
 
-
-(def start-jetty(run-jetty reloadable-app
-                     {:port  3000 :join? false}))
+(defonce server (run-jetty reloadable-app
+                           {:port 3000 :join? false}))
+;(defonce server (run-jetty #'reloadable-app {:port 3000 :join? false}))
+;(def start-jetty(run-jetty reloadable-app
+                     ;{:port  3000 :join? false}))

@@ -1,8 +1,10 @@
 (ns ringu.handlers
-  (:require [ring.util.response :refer [response]])
+  (:require [ring.util.response :refer [response content-type]])
   (:require [ringu.db.authorities :as au])
   (:require [ringu.db.core :as db]))
 
 
 (defn home [_]
-  (response (au/all-authorities (db/db-connection))))
+  (content-type
+   (response (au/all-authorities (db/db-connection)))
+   "text/html; charset=utf-8"))
