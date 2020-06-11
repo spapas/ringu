@@ -1,18 +1,19 @@
 (ns ringu.db.core
+  (:require [ringu.conf.util :as conf])
   (:import (com.mchange.v2.c3p0 ComboPooledDataSource)))
 
 (def pg-db-spec {:classname "org.postgresql.Driver"
-                 :subprotocol "postgresql"
-                 :subname "//localhost:5432/phxcrd_dev"
-                 :user "serafeim"
-                 :password ""})
+                 :jdbcUrl "jdbc:postgresql://localhost:5432/phxcrd_dev"
+                 :user (conf/get-conf :db-user)
+                 :password (conf/get-conf :db-password)})
 
 (defn pool
   [spec]
   (let [cpds (doto (ComboPooledDataSource.)
                (.setDriverClass (:classname spec))
-               (.setJdbcUrl (str "jdbc:" (:subprotocol spec) ":" (:subname spec)))
+               (.setJdbcUrl (:jdbcUrl spec))
                (.setUser (:user spec))
+               (.setAcquireRetryAttempts 5)
                (.setPassword (:password spec))
                ;; expire excess connections after 30 minutes of inactivity:
                (.setMaxIdleTimeExcessConnections (* 30 60))

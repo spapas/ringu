@@ -10,5 +10,6 @@
                  [com.layerware/hugsql "0.5.1"]
                  [org.postgresql/postgresql "42.2.2"]
                  [com.mchange/c3p0 "0.9.5.5"]
+                 [com.taoensso/timbre "4.10.0"]
                  [metosin/reitit "0.5.2"]]
   :repl-options {:init-ns ringu.core})

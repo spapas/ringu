@@ -1,4 +1,4 @@
-(ns ringu.handlers
+(ns ringu.web.handlers
   (:require [ring.util.response :refer [response content-type]])
   (:require [ringu.db.authorities :as au])
   (:require [ringu.db.core :as db]))
