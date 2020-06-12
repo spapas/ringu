@@ -1,5 +1,6 @@
 {
- :db-url "jdbc:postgresql://localhost:5432/phxcrd_dev"
- :db-user "postgres"
+ :db-user ""
  :db-password ""
+ ;:db-url "jdbc:postgresql://localhost:5432/phxcrd_dev"
+ :db-url "jdbc:hsqldb:file:C:/progr/clojure/ringu/db/sample"
  }

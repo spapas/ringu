@@ -9,7 +9,14 @@
                  [ring/ring-jetty-adapter "1.8.1"]
                  [com.layerware/hugsql "0.5.1"]
                  [org.postgresql/postgresql "42.2.2"]
+                 [org.hsqldb/hsqldb "2.5.0"]
                  [com.mchange/c3p0 "0.9.5.5"]
                  [com.taoensso/timbre "4.10.0"]
+                 [hiccup "1.0.5"]
+                 [migratus/migratus "1.2.8"]
+                 ;; Dep for migratus
+                 [com.fzakaria/slf4j-timbre "0.3.19"]
                  [metosin/reitit "0.5.2"]]
-  :repl-options {:init-ns ringu.core})
+  :repl-options {:init-ns ringu.core}
+  
+  )

@@ -2,7 +2,7 @@
   (:require [ringu.conf.util :as conf])
   (:import (com.mchange.v2.c3p0 ComboPooledDataSource)))
 
-(def pg-db-spec {:classname "org.postgresql.Driver"
+(def pg-db-spec {;:classname "org.postgresql.Driver"
                  :jdbcUrl (conf/get-conf :db-url)
                  :user (conf/get-conf :db-user)
                  :password (conf/get-conf :db-password)})
