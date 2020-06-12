@@ -3,7 +3,7 @@
   (:import (com.mchange.v2.c3p0 ComboPooledDataSource)))
 
 (def pg-db-spec {:classname "org.postgresql.Driver"
-                 :jdbcUrl "jdbc:postgresql://localhost:5432/phxcrd_dev"
+                 :jdbcUrl (conf/get-conf :db-url)
                  :user (conf/get-conf :db-user)
                  :password (conf/get-conf :db-password)})
 
