@@ -5,4 +5,4 @@
 
 (def db db/db-connection)
 (def lau au/all-authorities)
-(def conf co)
+(def conf co/get-conf)
