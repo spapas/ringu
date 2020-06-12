@@ -1,25 +1,37 @@
 (ns ringu.web.views.home
   (:require [hiccup.page :as hp]))
 
-(def inline-style "
-                   h1 { margin-top: 10px; }
-                   body {font-family: 'Comic Sans MS' !important;}
-                   ")
+(def inline-style "")
 
-(defn index-page [data]
+(defn table-row [r]
+  [:tr
+   [:td (:id r)]
+   [:td (:name r)]])
 
+(defn index-page [req data]
   (hp/html5
    [:html
     [:head
      [:title "Hello"]
-     (hp/include-css "https://unpkg.com/papercss/dist/paper.min.css")
+     (hp/include-css "https://unpkg.com/bootstrap@4.1.0/dist/css/bootstrap.min.css")
      [:style inline-style]]
 
     [:body
-     [:div  {:class "row"}
-      [:div {:class "md-12 col"}
-       [:div {:class "paper"}
-        [:h1 "the index-page"]
-        [:h3 "the index-page"]
 
-        [:div (map  #(vector :li (:name %)) data)]]]]]]))
+     [:main {:class "container"}
+      1[:div (str req)]2
+      [:div (:query-string req)]
+      [:div (str (get (:query-params req) "search")  )]
+      [:div (str (:params req))]
+      [:h1 "the index-page"]
+      [:h3 "the index-page"]
+      [:div  {:class "row"}
+       [:div {:class "col-md-12"}
+        [:form {:class "form form-inline"} 
+         [:label {:for "search"} "Αναζήτηση:&nbsp;&nbsp;"]
+         [:input {:id "search" :class "form-control" :name "search"}]
+         [:input {:class "btn btn-info" :type "submit"}]
+         ]
+        [:table {:class "table"}
+         [:thead [:tr [:th "Id"] [:th "Όνομα"]]]
+         [:tbody (map  table-row data)]]]]]]]))

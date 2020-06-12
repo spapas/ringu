@@ -5,8 +5,8 @@
   (:require [ringu.db.core :as db]))
 
 
-(defn home [_]
+(defn home [req]
   (content-type
-   (response (home/index-page (au/all-authorities (db/db-connection))))
+   (response (home/index-page req (au/all-authorities (db/db-connection))))
    ;(response (au/all-authorities (db/db-connection)))
    "text/html; charset=utf-8"))
