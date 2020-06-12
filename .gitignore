@@ -11,3 +11,5 @@ pom.xml.asc
 .hgignore
 .hg/
 /src/ringu/conf/local.edn
+.vscode
+tags
