@@ -15,15 +15,17 @@
 (def routes [["/" handlers/home]
              ["/fail" (fn [_] (throw (ex-info "fail" {:type ::failure})))]
      ;["/fail" (fn [_] (throw (Exception. "fail")))]
-             ["/pang/:id" handler_id]
-             ["/pong" handler]
-             ["/ping" handler]])
+             ["/pang/:id" {:get handler_id :name :pang}]
+             ["/pong" {:get handler :name :pong}]
+             ["/ping" {:get handler :name :ping}]])
+
+(def router (ring/router
+             routes
+             {:data {:middleware [wrap-params exception/exception-middleware]}})) 
 
 (def app
   (ring/ring-handler
-   (ring/router
-    routes
-    {:data {:middleware [wrap-params exception/exception-middleware]}})
+   router
    (ring/create-default-handler)))
 
 (def reloadable-app (wrap-reload #'app))

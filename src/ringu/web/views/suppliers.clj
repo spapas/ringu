@@ -12,14 +12,14 @@
   (hp/html5
    [:html
     [:head
-     [:title "Welcome!"]
+     [:title "Hello"]
      (hp/include-css "https://unpkg.com/bootstrap@4.1.0/dist/css/bootstrap.min.css")
      [:style inline-style]]
 
     [:body
 
      [:main {:class "container"}
-      [:div (str req)]
+      1[:div (str req)]2
       [:div (:query-string req)]
       [:div (str (get (:query-params req) "search")  )]
       [:div (str (:params req))]
