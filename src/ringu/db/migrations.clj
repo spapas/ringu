@@ -1,7 +1,8 @@
-(ns db.migrations
+(ns ringu.db.migrations
   (:require [migratus.core :as migratus])
   (:require [clojure.java.jdbc :as jdbc])
   (:require [ringu.conf.util :as conf])
+  (:require [clojure.java.jdbc :as j])
   (:require [ringu.db.core :as db]))
 
 (defn get-conn [] (.getConnection (:datasource (db/db-connection))) )
@@ -13,17 +14,23 @@
              :db {:connection (get-conn)}
              })
 
+(defn migrate [] 
+  (migratus/migrate(config)))
+
+(defn rollback []
+  (migratus/rollback (config)))
+
 ;initialize the database using the 'init.sql' script
-;(migratus/init config)
+;(migratus/init (config))
 
 ;apply pending migrations
-;(migratus/migrate config)
+;(migratus/migrate (config))
 
 ;rollback the last migration applied
-;(migratus/rollback config)
+;(migratus/rollback (config))
 
 ;bring up migrations matching the ids
-;(migratus/up config 20111206154000)
+;(migratus/up (config) 20111206154000)
 
 ;bring down migrations matching the ids
-;(migratus/down config 20111206154000)
+;(migratus/down (config) 20111206154000)

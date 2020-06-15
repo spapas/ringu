@@ -2,7 +2,7 @@
   (:require [ringu.conf.util :as conf])
   (:import (com.mchange.v2.c3p0 ComboPooledDataSource)))
 
-(def pg-db-spec {;:classname "org.postgresql.Driver"
+(def db-spec {;:classname "org.postgresql.Driver"
                  :jdbcUrl (conf/get-conf :db-url)
                  :user (conf/get-conf :db-user)
                  :password (conf/get-conf :db-password)})
@@ -21,5 +21,5 @@
                (.setMaxIdleTime (* 3 60 60)))]
     {:datasource cpds}))
 
-(def pooled-db (delay (pool pg-db-spec)))
+(def pooled-db (delay (pool db-spec)))
 (defn db-connection [] @pooled-db)
