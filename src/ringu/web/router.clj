@@ -10,14 +10,17 @@
 
 (defn handler_id [{{id :id} :path-params}]
   {:status 200, :body (str "zz " id)})
-
-(def routes [["/" handlers/home]
-             ["/suppliers" handlers/suppliers]
-             ["/fail" (fn [_] (throw (ex-info "fail" {:type ::failure})))]
+(def routes [["/" {:get handlers/home :name ::home }]
+             ["/suppliers" {:get handlers/suppliers :name :suppliers}]
+             ["/fail" (fn [_] (throw (ex-info "fail" {:type :failure})))]
              ["/pang/:id" {:get handler_id :name :pang}]
              ["/pong" {:get handler :name :pong}]
              ["/ping" {:get handler :name :ping}]])
 
+(defn sample-middleware [handler]
+  (fn [request]
+   (handler (assoc request :koko "KOKO"))))
+
 (def router (ring/router
              routes
-             {:data {:middleware [wrap-params exception/exception-middleware]}}))
+             {:data {:middleware [sample-middleware wrap-params exception/exception-middleware]}}))

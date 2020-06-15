@@ -2,8 +2,10 @@
   (:require [reitit.core :as r]
             [hiccup.page :as hp]))
 
-(defn get-path [name params]
-  (:path (r/match-by-name (resolve 'ringu.web.router/router) name params)))
+(defn get-path 
+  ([name] (get-path name {}))
+  ([name params]
+  (:path (r/match-by-name (deref (resolve 'ringu.web.router/router)) name params))))
 
 (def inline-style "")
 
