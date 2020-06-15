@@ -1,4 +1,4 @@
-(ns ringu.web.views.home
+(ns ringu.web.views.suppliers
   (:require [hiccup.page :as hp]))
 
 (def inline-style "")
