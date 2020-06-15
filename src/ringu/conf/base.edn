@@ -3,5 +3,5 @@
  :db-password ""
  ;:db-url "jdbc:postgresql://localhost:5432/phxcrd_dev"
  ;:db-url "jdbc:hsqldb:file:C:/progr/clojure/ringu/db/sample"
- :db-url "jdbc:sqlite:file:/tmp/sample.db"
+ :db-url "jdbc:sqlite:file:sample.db"
  }

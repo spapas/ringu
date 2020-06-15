@@ -4,7 +4,6 @@
             [ringu.web.router :refer[router]]
             [ring.middleware.reload :refer [wrap-reload]]))
 
-
 (def app
   (ring/ring-handler
    router
