@@ -38,6 +38,7 @@
     [:input {:id "name"
              :class (str "form-control " (when (:name errors) "invalid"))
              :name "name"
+             :type "text"
              :value (:name data)}]
     [:div {:class "invalid_feedback"} (:name errors)]]
    [:div {:class "form-group"}
