@@ -3,6 +3,7 @@
             [ring.adapter.jetty :refer [run-jetty]]
             [ringu.web.router :refer [router]]
             [ring.middleware.flash :refer [wrap-flash]]
+            [ring.middleware.session.memory :refer [memory-store ]]
             [ring.middleware.session.cookie :refer [cookie-store]]
             [ring.middleware.defaults :refer [wrap-defaults site-defaults]]
             [ring.middleware.reload :refer [wrap-reload]]))
@@ -12,8 +13,10 @@
     (handler (assoc request :koko "KOKO"))))
 
 (def the-site-defaults
-  (merge site-defaults
-         {:session {:store (cookie-store {:key (byte-array (map (comp byte int) "0123456789ABCDEF"))})}}))
+  (merge site-defaults {}
+         {:session {:store (memory-store) }}
+         ;{:session {:store (cookie-store {:key (byte-array (map (comp byte int) "0123456789ABCDEF"))})}}
+         ))
 
 (def app
   (->  (ring/ring-handler

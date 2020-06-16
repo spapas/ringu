@@ -46,8 +46,7 @@
      [:div {:class "container"}
       (app-bar)
       [:h1 {:class "h1 mt-18"} title]
-      (let [m (:flash req)]
-        (when (not (nil? m) ) [:div {:class "remark primary"}  (:flash req)]))
+      (let [m (:flash req)] (when (not (nil? m) ) [:div {:class "remark primary"} m]))
 
      content
       ]
