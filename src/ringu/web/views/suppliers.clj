@@ -2,6 +2,7 @@
   (:require [ringu.web.views.helpers :as helpers]
             [ringu.db.suppliers :as su]
             [struct.core :as st]
+            [ring.util.anti-forgery :refer [anti-forgery-field]]
             [ringu.db.core :as db]))
 
 (def inline-style "")
@@ -31,6 +32,7 @@
 
 (defn- form [data errors]
   [:form {:method "POST" :class "form form-inline" :novalidate ""}
+   (anti-forgery-field)
    [:div {:class "form-group"}
     [:label {:for "name"} "Όνομα:&nbsp;&nbsp;"]
     [:input {:id "name"
