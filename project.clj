@@ -9,7 +9,7 @@
                  [ring/ring-jetty-adapter "1.8.1"]
                  [com.layerware/hugsql "0.5.1"]
                  [org.postgresql/postgresql "42.2.2"]
-                 
+                 [funcool/struct "1.3.0"]
                  [org.xerial/sqlite-jdbc "3.31.1"]
                  [com.mchange/c3p0 "0.9.5.5"]
                  [com.taoensso/timbre "4.10.0"]

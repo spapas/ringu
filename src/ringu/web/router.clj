@@ -3,6 +3,7 @@
    [ringu.web.exception :as exception]
    [reitit.ring :as ring]
    [ring.middleware.params :refer [wrap-params]]
+   [ring.middleware.keyword-params :refer [wrap-keyword-params]]
    [ringu.web.handlers :as handlers]
    [ringu.web.views.home :as home]
    [ringu.web.views.suppliers :as suppliers]))
@@ -15,6 +16,10 @@
 
 (def routes [["/" {:get (handlers/html-resp home/index-page) :name :home}]
              ["/suppliers/" {:get (handlers/html-resp suppliers/index-page) :name :suppliers}]
+             ["/suppliers/add/" {
+                                 :get (handlers/html-resp suppliers/add) 
+                                 :post (handlers/html-resp suppliers/add-post) 
+                                 :name :suppliers-add}]
              ["/fail/" (fn [_] (throw (ex-info "fail" {:type :failure})))]
              ["/pang/:id" {:get handler_id :name :pang}]
              ["/pong/" {:get handler :name :pong}]
@@ -28,4 +33,5 @@
              routes
              {:data {:middleware [sample-middleware
                                   wrap-params
+                                  wrap-keyword-params
                                   exception/exception-middleware]}}))
