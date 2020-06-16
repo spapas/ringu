@@ -4,11 +4,12 @@
 
 (defn html-resp [f]
   (fn [req]
-    (content-type
-     (response (f req))
-     "text/html; charset=utf-8")))
+    (let [r (f req)]
+      (if (= (type r) java.lang.String)
+         (content-type  (response r) "text/html; charset=utf-8")
+        r))))
 
 ; OR
-;(defn html-resp2 [f]
+;(defn html-resp [f]
 ;  (fn [req]
 ;    (-> req f response (content-type "text/html; charset=utf-8"))))

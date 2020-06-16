@@ -30,7 +30,7 @@
     [:li
      [:a {:href "#"} "Contacts"]]]])
 
-(defn layout [title content]
+(defn layout [req title content ]
   (hp/html5
    [:html
     [:head
@@ -43,11 +43,12 @@
      [:style inline-style]]
 
     [:body
-     
      [:div {:class "container"}
-      
       (app-bar)
       [:h1 {:class "h1 mt-18"} title]
+      (let [m (:flash req)]
+        (when (not (nil? m) ) [:div {:class "remark primary"}  (:flash req)]))
+
      content
       ]
      [:script {:src "https://cdn.metroui.org.ua/v4/js/metro.min.js"}]

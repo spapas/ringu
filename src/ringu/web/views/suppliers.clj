@@ -2,6 +2,7 @@
   (:require [ringu.web.views.helpers :as helpers]
             [ringu.db.suppliers :as su]
             [struct.core :as st]
+            [ring.util.response :refer [redirect]]
             [ring.util.anti-forgery :refer [anti-forgery-field]]
             [ringu.db.core :as db]))
 
@@ -14,7 +15,7 @@
 
 (defn index-page [req]
   (let [suppliers (su/all-suppliers (db/db-connection))]
-    (helpers/layout
+    (helpers/layout req 
      [:div "Προμηθευτές" [:a {:href (helpers/get-path :suppliers-add) :title "Προσθήκη" :class "mx-8 button primary"} [:span {:class "mif-plus"}]]]
      [:div
       [:div (str (get (:query-params req) "search"))]
@@ -47,8 +48,8 @@
 
 (defn add
   ([req] (add req {} {}))
-  ([_req data errors]
-   (helpers/layout
+  ([req data errors]
+   (helpers/layout req
     "Προσθήκη προμηθευτή" (form data errors))))
 
 (def supplier
@@ -56,9 +57,15 @@
           [st/required :message "Το πεδίο είναι απαραίτητο"]
           st/string]})
 
+(defn insert-supplier [req data]
+  (try
+    (let [id (su/insert-get-id (db/db-connection) data)]
+     (assoc (redirect (helpers/get-path :suppliers)) :flash (str "Επιτυχής προσθήκη! Κωδ: " id ".")))
+    (catch java.sql.SQLException _e (add req data {:name "Υπάρχει ήδη!"}))))
+
 (defn add-post [req]
   (let [[errors data] (-> (:params req) (st/validate supplier {:strip true}))]
-    (if (nil? errors) "OK" (add req data errors))))
+    (if (nil? errors) (insert-supplier req data) (add req data errors))))
 
 (comment
   (-> {:year 1999 :name "1"} (st/validate supplier {:strip true})))
