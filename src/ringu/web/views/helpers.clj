@@ -9,6 +9,27 @@
 
 (def inline-style "")
 
+
+(defn app-bar []
+  [:nav {:class "bg-lightGray mt-0 py-1" :data-role "appbar", :data-expand-point "md"}
+   [:a {:href (get-path :home), :class "brand no-hover"}
+    [:span {:class "px-2 border bd-dark border-radius"} "Αρχή" ]]
+   [:ul {:class "app-bar-menu"}
+    [:li
+     [:a {:href (get-path :suppliers)} "Προμηθευτές"]]
+    [:li
+     [:a {:href "#", :class "dropdown-toggle"} "Products"]
+     [:ul {:class "d-menu", :data-role "dropdown"}
+      [:li
+       [:a {:href "#"} "Windows 10"]]
+      [:li
+       [:a {:href "#"} "Office 365"]]
+      [:li {:class "divider bg-lightGray"}]
+      [:li
+       [:a {:href "#"} "Skype"]]]]
+    [:li
+     [:a {:href "#"} "Contacts"]]]])
+
 (defn layout [title content]
   (hp/html5
    [:html
@@ -22,9 +43,13 @@
      [:style inline-style]]
 
     [:body
+     
      [:div {:class "container"}
-      [:h1 {:class "h1"} title]
+      
+      (app-bar)
+      [:h1 {:class "h1 mt-18"} title]
      content
       ]
      [:script {:src "https://cdn.metroui.org.ua/v4/js/metro.min.js"}]
      ]]))
+

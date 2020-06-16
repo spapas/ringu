@@ -13,7 +13,7 @@
 (defn handler_id [{{id :id} :path-params}]
   {:status 200, :body (str "zz " id)})
 
-(def routes [["/" {:get (handlers/html-resp home/index-page) :name ::home}]
+(def routes [["/" {:get (handlers/html-resp home/index-page) :name :home}]
              ["/suppliers/" {:get (handlers/html-resp suppliers/index-page) :name :suppliers}]
              ["/fail/" (fn [_] (throw (ex-info "fail" {:type :failure})))]
              ["/pang/:id" {:get handler_id :name :pang}]
