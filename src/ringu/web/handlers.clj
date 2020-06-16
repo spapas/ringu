@@ -1,18 +1,26 @@
 (ns ringu.web.handlers
-  (:require [ring.util.response :refer [response content-type]])
-  (:require [ringu.db.suppliers :as su])
-  (:require [ringu.web.views.home :as home])
-  (:require [ringu.web.views.suppliers :as suppliers])
-  (:require [ringu.db.core :as db]))
+  (:require [ring.util.response :refer [response content-type]]
+            [ringu.web.views.home :as home]
+            [ringu.web.views.suppliers :as suppliers]))
 
 
 (defn home [req]
   (content-type
-   (response (home/index-page req ))
+   (response (home/index-page req))
    "text/html; charset=utf-8"))
 
 (defn suppliers [req]
   (content-type
-   (response (suppliers/index-page req (su/all-suppliers (db/db-connection))))
-   ;(response (au/all-authorities (db/db-connection)))
+   (response (suppliers/index-page req))
    "text/html; charset=utf-8"))
+
+(defn html-resp [f]
+  (fn [req]
+    (content-type
+     (response (f req))
+     "text/html; charset=utf-8")))
+
+; OR
+;(defn html-resp2 [f]
+;  (fn [req]
+;    (-> req f response (content-type "text/html; charset=utf-8"))))
