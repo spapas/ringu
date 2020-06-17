@@ -48,12 +48,12 @@
     [:ul {:class "pagination no-gap"}
      [:li {:class (str "page-item " (if (<= page 1) "disabled" "service"))}
       [:a {:href (str path "?" (codec/form-encode (assoc params :page (dec page))))
-           :class "page-link"} "Prev"]]
+           :class "page-link"} [:span {:class "mif-arrow-left"}]]]
      [:li {:class "page-item active"}
       [:a {:class "page-link"} (str page)]]
      [:li {:class (str "page-item " (if (>= page total-pages) "disabled" "service"))}
       [:a {:href (str path "?" (codec/form-encode (assoc params :page (inc page))))
-           :class "page-link"} "Next"]]]))
+           :class "page-link"} [:span {:class "mif-arrow-right"}]]]]))
 
 (defn layout
   ([req title content] (layout req title title content))
