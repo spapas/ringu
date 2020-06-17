@@ -16,12 +16,13 @@
 (defn index-page [req]
   (let 
    [search (get (:params req) :search)
-    suppliers (su/search-by-name-like (db/db-connection) search)]
+    page (helpers/get-page req)
+    suppliers (su/search-by-name-like (db/db-connection) search page)
+    total-pages (su/total-pages-by-name-like (db/db-connection) search)]
     (helpers/layout req
                     "Προμηθευτές"
                     [:div "Προμηθευτές" [:a {:href (helpers/get-path :suppliers-add) :title "Προσθήκη" :class "mx-8 button primary"} [:span {:class "mif-plus"}]]]
                     [:div
-                     
                      [:div  {:class "row"}
                       [:div {:class "col-md-12"}
                        [:form {:class "inline-form"}
@@ -31,7 +32,9 @@
                         [:input {:class "button info" :value "Αναζήτηση" :type "submit"}]]
                        [:table {:class "table"}
                         [:thead [:tr [:th "Id"] [:th "Όνομα"]]]
-                        [:tbody (map  table-row suppliers)]]]]])))
+                        [:tbody (map  table-row suppliers)]]
+                       (helpers/pagination req total-pages)
+                       ]]])))
 
 (defn- form [data errors]
   [:form {:method "POST" :class "form form-inline" :novalidate ""}

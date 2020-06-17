@@ -13,4 +13,5 @@
 
 (comment
   (lsu (db) {:name "ΚΛ ΠΕΙΡΑΙΑ 2"})
+  (su/all-suppliers (db) {})
   )

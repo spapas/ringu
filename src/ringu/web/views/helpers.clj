@@ -1,6 +1,7 @@
 (ns ringu.web.views.helpers
   (:require [reitit.core :as r]
             [clojure.data.json :as j]
+            [ring.util.codec :as codec]
             [hiccup.page :as hp]))
 
 (defn get-path
@@ -16,6 +17,9 @@
 (defn get-flash [req]
   (let [f (:flash req)]
     (when (not (nil? f)) (j/read-str f))))
+
+(defn get-page [req]
+  (Integer/parseInt (get (:params req) :page "1")))
 
 (defn app-bar []
   [:nav {:class "bg-lightGray mt-0 py-1" :data-role "appbar", :data-expand-point "md"}
@@ -36,6 +40,20 @@
        [:a {:href "#"} "Skype"]]]]
     [:li
      [:a {:href "#"} "Contacts"]]]])
+
+(defn pagination [req total-pages]
+  (let [params (:params req)
+        page (get-page req)
+        path (get req :uri)]
+    [:ul {:class "pagination no-gap"}
+     [:li {:class (str "page-item " (if (<= page 1) "disabled" "service"))}
+      [:a {:href (str path "?" (codec/form-encode (assoc params :page (dec page))))
+           :class "page-link"} "Prev"]]
+     [:li {:class "page-item active"}
+      [:a {:class "page-link"} (str page)]]
+     [:li {:class (str "page-item " (if (>= page total-pages) "disabled" "service"))}
+      [:a {:href (str path "?" (codec/form-encode (assoc params :page (inc page))))
+           :class "page-link"} "Next"]]]))
 
 (defn layout
   ([req title content] (layout req title title content))
