@@ -14,8 +14,8 @@
 
 (def the-site-defaults
   (merge site-defaults {}
-         {:session {:store (memory-store) }}
-         ;{:session {:store (cookie-store {:key (byte-array (map (comp byte int) "0123456789ABCDEF"))})}}
+         ;{:session {:store (memory-store) }}
+         {:session {:store (cookie-store {:key (byte-array (map (comp byte int) "0123456789ABCDEF"))})}}
          ))
 
 (def app

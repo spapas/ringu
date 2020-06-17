@@ -15,21 +15,22 @@
 
 (defn index-page [req]
   (let [suppliers (su/all-suppliers (db/db-connection))]
-    (helpers/layout req 
-     [:div "Προμηθευτές" [:a {:href (helpers/get-path :suppliers-add) :title "Προσθήκη" :class "mx-8 button primary"} [:span {:class "mif-plus"}]]]
-     [:div
-      [:div (str (get (:query-params req) "search"))]
-      [:div (str (:params req))]
-      [:div  {:class "row"}
-       [:div {:class "col-md-12"}
-        [:form {:class "inline-form"}
-         [:div {:class "form-group"}
-          [:label {:for "search"} "Αναζήτηση:&nbsp;&nbsp;"]
-          [:input {:id "search" :class "form-control" :name "search"}]]
-         [:input {:class "button info" :value "Αναζήτηση" :type "submit"}]]
-        [:table {:class "table"}
-         [:thead [:tr [:th "Id"] [:th "Όνομα"]]]
-         [:tbody (map  table-row suppliers)]]]]])))
+    (helpers/layout req
+                    "Προμηθευτές"
+                    [:div "Προμηθευτές" [:a {:href (helpers/get-path :suppliers-add) :title "Προσθήκη" :class "mx-8 button primary"} [:span {:class "mif-plus"}]]]
+                    [:div
+                     [:div (str (get (:query-params req) "search"))]
+                     [:div (str (:params req))]
+                     [:div  {:class "row"}
+                      [:div {:class "col-md-12"}
+                       [:form {:class "inline-form"}
+                        [:div {:class "form-group"}
+                         [:label {:for "search"} "Αναζήτηση:&nbsp;&nbsp;"]
+                         [:input {:id "search" :class "form-control" :name "search"}]]
+                        [:input {:class "button info" :value "Αναζήτηση" :type "submit"}]]
+                       [:table {:class "table"}
+                        [:thead [:tr [:th "Id"] [:th "Όνομα"]]]
+                        [:tbody (map  table-row suppliers)]]]]])))
 
 (defn- form [data errors]
   [:form {:method "POST" :class "form form-inline" :novalidate ""}
@@ -50,7 +51,7 @@
   ([req] (add req {} {}))
   ([req data errors]
    (helpers/layout req
-    "Προσθήκη προμηθευτή" (form data errors))))
+                   "Προσθήκη προμηθευτή" (form data errors))))
 
 (def supplier
   {:name [[st/min-count 4 :message "Πρέπει να έχει τουλάχιστον 4 χαρακτήρες"]
@@ -60,7 +61,7 @@
 (defn insert-supplier [req data]
   (try
     (let [id (su/insert-get-id (db/db-connection) data)]
-     (assoc (redirect (helpers/get-path :suppliers)) :flash (str "Επιτυχής προσθήκη! Κωδ: " id ".")))
+      (helpers/put-flash (redirect (helpers/get-path :suppliers)) (str "Επιτυχής προσθήκη! Κωδ: " id ".")))
     (catch java.sql.SQLException _e (add req data {:name "Υπάρχει ήδη!"}))))
 
 (defn add-post [req]
