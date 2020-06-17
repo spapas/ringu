@@ -10,7 +10,7 @@ where id = :id
 -- :name suppliers-by-name-like :?
 -- :doc Get suppliers by name like, :name-like should include % wildcards
 select * from suppliers
-where name like :name-like
+where lower(name) like lower(:name-like)
 
 -- :name insert-supplier :! :n
 -- :doc Insert a single supplier returning affected row count

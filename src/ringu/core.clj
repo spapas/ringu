@@ -3,7 +3,7 @@
             [ring.adapter.jetty :refer [run-jetty]]
             [ringu.web.router :refer [router]]
             [ring.middleware.flash :refer [wrap-flash]]
-            [ring.middleware.session.memory :refer [memory-store ]]
+            ;[ring.middleware.session.memory :refer [memory-store ]]
             [ring.middleware.session.cookie :refer [cookie-store]]
             [ring.middleware.defaults :refer [wrap-defaults site-defaults]]
             [ring.middleware.reload :refer [wrap-reload]]))

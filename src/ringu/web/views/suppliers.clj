@@ -14,19 +14,20 @@
    [:td (:name r)]])
 
 (defn index-page [req]
-  (let [suppliers (su/all-suppliers (db/db-connection))]
+  (let 
+   [search (get (:params req) :search)
+    suppliers (su/search-by-name-like (db/db-connection) search)]
     (helpers/layout req
                     "Προμηθευτές"
                     [:div "Προμηθευτές" [:a {:href (helpers/get-path :suppliers-add) :title "Προσθήκη" :class "mx-8 button primary"} [:span {:class "mif-plus"}]]]
                     [:div
-                     [:div (str (get (:query-params req) "search"))]
-                     [:div (str (:params req))]
+                     
                      [:div  {:class "row"}
                       [:div {:class "col-md-12"}
                        [:form {:class "inline-form"}
                         [:div {:class "form-group"}
                          [:label {:for "search"} "Αναζήτηση:&nbsp;&nbsp;"]
-                         [:input {:id "search" :class "form-control" :name "search"}]]
+                         [:input {:id "search" :class "form-control" :name "search" :value search}]]
                         [:input {:class "button info" :value "Αναζήτηση" :type "submit"}]]
                        [:table {:class "table"}
                         [:thead [:tr [:th "Id"] [:th "Όνομα"]]]
