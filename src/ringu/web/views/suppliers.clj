@@ -14,7 +14,7 @@
    [:td (:name r)]])
 
 (defn index-page [req]
-  (let 
+  (let
    [search (get (:params req) :search)
     page (helpers/get-page req)
     suppliers (su/search-by-name-like (db/db-connection) search page)
@@ -33,8 +33,7 @@
                        [:table {:class "table"}
                         [:thead [:tr [:th "Id"] [:th "Όνομα"]]]
                         [:tbody (map  table-row suppliers)]]
-                       (helpers/pagination req total-pages)
-                       ]]])))
+                       (helpers/pagination req total-pages)]]])))
 
 (defn- form [data errors]
   [:form {:method "POST" :class "form form-inline" :novalidate ""}
