@@ -29,6 +29,8 @@
     [:li
      [:a {:href (get-path :suppliers)} "Προμηθευτές"]]
     [:li
+     [:a {:href (get-path :suppliers)} "Προϊόντα"]]
+    [:li
      [:a {:href "#", :class "dropdown-toggle"} "Products"]
      [:ul {:class "d-menu", :data-role "dropdown"}
       [:li
