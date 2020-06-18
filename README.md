@@ -1,14 +1,16 @@
 # ringu
 
-A Clojure library designed to ... well, that part is up to you.
+A CRUD web-app in clojure using ring and friends
 
 ## Usage
 
-FIXME
+Just connect a repl for now and the server will start. 
+Then do the migrations (from inside the ringu.db.migrations namespace).
+Finally you can visit 127.0.0.1:3000 to see things.
 
 ## License
 
-Copyright © 2020 FIXME
+Copyright © 2020 Serafeim Papastefanos
 
 This program and the accompanying materials are made available under the
 terms of the Eclipse Public License 2.0 which is available at

@@ -1,6 +1,6 @@
 (defproject ringu "0.1.0-SNAPSHOT"
-  :description "FIXME: write description"
-  :url "http://example.com/FIXME"
+  :description "A CRUD web-app in clojure using ring and friends"
+  :url "https://github.com/spapas/ringu"
   :license {:name "EPL-2.0 OR GPL-2.0-or-later WITH Classpath-exception-2.0"
             :url "https://www.eclipse.org/legal/epl-2.0/"}
   :managed-dependencies [[ring/ring-core "1.8.1"]
@@ -23,6 +23,4 @@
                  ;; Dep for migratus
                  [com.fzakaria/slf4j-timbre "0.3.19"]
                  [metosin/reitit "0.5.2"]]
-  :repl-options {:init-ns ringu.core}
-  
-  )
+  :repl-options {:init-ns ringu.core})
