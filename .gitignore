@@ -13,3 +13,6 @@ pom.xml.asc
 /src/ringu/conf/local.edn
 .vscode
 tags
+db
+.lsp/
+.clj-kondo/
